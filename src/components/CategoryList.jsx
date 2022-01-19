@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import { getCategories } from '../services/api';
-import Categorie from './Categorie';
+import PropTypes from 'prop-types';
 
-class CategorieList extends Component {
+import { getCategories } from '../services/api';
+import Category from './Category';
+
+class CategoryList extends Component {
   constructor() {
     super();
     this.state = { categories: [] };
@@ -19,16 +21,22 @@ class CategorieList extends Component {
 
   render() {
     const { categories } = this.state;
+    const { handleChange } = this.props;
     return (
       <form className="categorie-form">
-        {categories.map(({ name, id }) => (<Categorie
+        {categories.map(({ name, id }) => (<Category
           key={ id }
           id={ id }
           name={ name }
+          handleChange={ handleChange }
         />))}
       </form>
     );
   }
 }
 
-export default CategorieList;
+CategoryList.propTypes = {
+  handleChange: PropTypes.func.isRequired,
+};
+
+export default CategoryList;
