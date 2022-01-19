@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import CategorieList from '../components/CategorieList';
 
 class Home extends Component {
   render() {
@@ -14,6 +15,9 @@ class Home extends Component {
           </h3>
         </label>
         <Link data-testid="shopping-cart-button" to="/cart"> Carrinho </Link>
+        <div>
+          <CategorieList />
+        </div>
       </div>
     );
   }
