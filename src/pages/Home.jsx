@@ -1,22 +1,70 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { getProductsFromCategoryAndQuery } from '../services/api';
 import CategorieList from '../components/CategorieList';
+import CardList from '../components/CardList';
 
 class Home extends Component {
+  constructor() {
+    super();
+
+    this.state = {
+      searchInput: '',
+      products: [],
+    };
+  }
+
+  componentDidMount() {
+    this.fetchProducts();
+  }
+
+  fetchProducts = async () => {
+    const { searchInput } = this.state;
+    const request = await getProductsFromCategoryAndQuery('', searchInput);
+    this.setState({ products: [...request.results] });
+  };
+
+  handleChange = ({ target }) => {
+    const { name, value } = target;
+    this.setState({
+      [name]: value,
+    });
+  };
+
   render() {
+    const { searchInput, products } = this.state;
     return (
       <div>
-        <label htmlFor="searchImput">
-          <input type="text" name="searchImput" id="searchImput" />
-          <h3
-            data-testid="home-initial-message"
+        <h3
+          data-testid="home-initial-message"
+        >
+          Digite algum termo de pesquisa ou escolha uma categoria.
+        </h3>
+        <label htmlFor="searchInput">
+          <input
+            type="text"
+            name="searchInput"
+            id="searchInput"
+            value={ searchInput }
+            data-testid="query-input"
+            onChange={ this.handleChange }
+          />
+
+          <button
+            type="button"
+            onClick={ this.fetchProducts }
+            data-testid="query-button"
           >
-            Digite algum termo de pesquisa ou escolha uma categoria.
-          </h3>
+            Pesquisar
+          </button>
         </label>
         <Link data-testid="shopping-cart-button" to="/cart"> Carrinho </Link>
         <div>
           <CategorieList />
+          <CardList
+            searchInput={ searchInput }
+            products={ products }
+          />
         </div>
       </div>
     );

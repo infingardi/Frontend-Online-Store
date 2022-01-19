@@ -3,7 +3,6 @@ export async function getCategories() {
   try {
     const request = await fetch(ENDPOINT_CATEGORIES);
     const data = await request.json();
-    console.log(data);
     return data;
   } catch (error) {
     console.log(error);
@@ -15,7 +14,6 @@ export async function getProductsFromCategoryAndQuery(categoryId, query) {
   try {
     const request = await fetch(ENDPOINT_CATEGORIES);
     const data = await request.json();
-    console.log(data);
     return data;
   } catch (error) {
     console.log(error);
