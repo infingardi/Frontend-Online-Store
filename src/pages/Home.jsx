@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { getProductsFromCategoryAndQuery } from '../services/api';
-import CategorieList from '../components/CategorieList';
+import CategoryList from '../components/CategoryList';
 import CardList from '../components/CardList';
 
 class Home extends Component {
@@ -11,6 +11,7 @@ class Home extends Component {
     this.state = {
       searchInput: '',
       products: [],
+      selectedCategory: 'Construção',
     };
   }
 
@@ -19,10 +20,14 @@ class Home extends Component {
   }
 
   fetchProducts = async () => {
-    const { searchInput } = this.state;
-    const request = await getProductsFromCategoryAndQuery('', searchInput);
+    const { searchInput, selectedCategory } = this.state;
+    const request = await getProductsFromCategoryAndQuery(selectedCategory, searchInput);
     this.setState({ products: [...request.results] });
   };
+
+  handleChangeCategory = ({ target }) => {
+    this.setState({ selectedCategory: target.value });
+  }
 
   handleChange = ({ target }) => {
     const { name, value } = target;
@@ -60,7 +65,7 @@ class Home extends Component {
         </label>
         <Link data-testid="shopping-cart-button" to="/cart"> Carrinho </Link>
         <div>
-          <CategorieList />
+          <CategoryList handleChange={ this.handleChange } />
           <CardList
             searchInput={ searchInput }
             products={ products }

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-class Categorie extends Component {
+class Category extends Component {
   render() {
-    const { id, name } = this.props;
+    const { id, name, handleChange } = this.props;
     return (
       <label
         htmlFor={ id }
@@ -11,8 +11,9 @@ class Categorie extends Component {
       >
         <input
           id={ id }
-          name="categorie"
-          value={ name }
+          name="selectedCategory"
+          value={ id }
+          onClick={ handleChange }
           type="radio"
         />
         {name}
@@ -20,9 +21,10 @@ class Categorie extends Component {
     );
   }
 }
-Categorie.propTypes = {
+Category.propTypes = {
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
+  handleChange: PropTypes.func.isRequired,
 };
 
-export default Categorie;
+export default Category;
