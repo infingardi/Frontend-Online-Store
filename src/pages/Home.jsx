@@ -15,6 +15,8 @@ class Home extends Component {
       selectedCategory: 'MLB1648',
       cartItems: [],
     };
+
+    this.addCartItem = this.addCartItem.bind(this);
   }
 
   componentDidMount() {
@@ -34,14 +36,26 @@ class Home extends Component {
 
   addItemStorage = () => {
     const { cartItems } = this.state;
+
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
   }
 
   addCartItem = (id, title, price, image) => {
-    const product = { id, title, price, image };
-    this.setState(({ cartItems }) => ({
-      cartItems: [...cartItems, product],
-    }), this.addItemStorage);
+    const product = { id, title, price, image, quantidade: 1 };
+    const { cartItems: items } = this.state;
+
+    const verify = items.find((item) => item.id === product.id);
+
+    if (verify) {
+      verify.quantidade += 1;
+      this.setState(({ cartItems }) => ({
+        cartItems: [...cartItems],
+      }), this.addItemStorage);
+    } else {
+      this.setState(({ cartItems }) => ({
+        cartItems: [...cartItems, product],
+      }), this.addItemStorage);
+    }
   }
 
   fetchProducts = async () => {
@@ -49,13 +63,6 @@ class Home extends Component {
     const request = await getProductsFromCategoryAndQuery(selectedCategory, searchInput);
     this.setState({ products: [...request.results] });
   };
-
-  handleChangeCategory = ({ target }) => {
-    const { name, value } = target;
-    this.setState({
-      [name]: value,
-    }, this.fetchProducts);
-  }
 
   handleChange = ({ target }) => {
     const { name, value } = target;
@@ -101,7 +108,7 @@ class Home extends Component {
         </Link>
         <section className="categorie-products">
           <div className="divform">
-            <CategoryList handleChange={ this.handleChangeCategory } />
+            <CategoryList handleChange={ this.handleChange } />
           </div>
           <div>
             <CardList
