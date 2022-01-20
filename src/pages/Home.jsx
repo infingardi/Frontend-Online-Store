@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { getProductsFromCategoryAndQuery } from '../services/api';
 import CategoryList from '../components/CategoryList';
 import CardList from '../components/CardList';
+import cartLogo from '../assets/cartLogo.png';
 
 class Home extends Component {
   constructor() {
@@ -69,10 +70,7 @@ class Home extends Component {
           data-testid="shopping-cart-button"
           to="/cart"
         >
-          {' '}
-          Carrinho
-          {' '}
-
+          <img className="cart-logo" src={ cartLogo } alt="cartLogo" />
         </Link>
         <section className="categorie-products">
           <div className="divform">
