@@ -39,13 +39,14 @@ class Home extends Component {
   render() {
     const { searchInput, products } = this.state;
     return (
-      <div>
+      <div className="home-content">
         <h3
+          className="initial-message"
           data-testid="home-initial-message"
         >
           Digite algum termo de pesquisa ou escolha uma categoria.
         </h3>
-        <label htmlFor="searchInput">
+        <label className="searchInputLabel" htmlFor="searchInput">
           <input
             type="text"
             name="searchInput"
@@ -63,14 +64,27 @@ class Home extends Component {
             Pesquisar
           </button>
         </label>
-        <Link data-testid="shopping-cart-button" to="/cart"> Carrinho </Link>
-        <div>
-          <CategoryList handleChange={ this.handleChange } />
-          <CardList
-            searchInput={ searchInput }
-            products={ products }
-          />
-        </div>
+        <Link
+          className="cart-icon"
+          data-testid="shopping-cart-button"
+          to="/cart"
+        >
+          {' '}
+          Carrinho
+          {' '}
+
+        </Link>
+        <section className="categorie-products">
+          <div className="divform">
+            <CategoryList handleChange={ this.handleChange } />
+          </div>
+          <div>
+            <CardList
+              searchInput={ searchInput }
+              products={ products }
+            />
+          </div>
+        </section>
       </div>
     );
   }

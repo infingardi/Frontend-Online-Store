@@ -19,3 +19,14 @@ export async function getProductsFromCategoryAndQuery(categoryId, query) {
     console.log(error);
   }
 }
+
+export async function getProductInfo(productId) {
+  const ENDPOINT_CATEGORIES = `https://api.mercadolibre.com/items/${productId}`;
+  try {
+    const request = await fetch(ENDPOINT_CATEGORIES);
+    const data = await request.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+}
