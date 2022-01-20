@@ -5,6 +5,8 @@ import propTypes from 'prop-types';
 import { getProductInfo } from '../services/api';
 import cartLogo from '../assets/cartLogo.png';
 import cardsLogo from '../assets/cardsLogo.png';
+import Evaluation from '../components/Evaluation';
+import FormEval from '../components/FormEval';
 
 class Product extends Component {
   constructor() {
@@ -13,12 +15,34 @@ class Product extends Component {
       productInfo: {},
       specs: [],
       pictures: [],
+      objEvaluation: [],
+      email: '',
+      rating: '',
+      detailEvaluation: '',
     };
   }
 
   componentDidMount() {
+    this.initLocalStorage();
     this.fetchProductInfo();
   }
+
+  initLocalStorage = () => {
+    const itemStorage = JSON.parse(localStorage.getItem('evaluations'));
+    if (!itemStorage || (itemStorage.length === 0)) {
+      this.evalStorage();
+    } else {
+      this.setState({ objEvaluation: itemStorage });
+      localStorage.setItem('evaluations', [JSON.stringify(itemStorage)]);
+    }
+  }
+
+  handleChange = ({ target }) => {
+    const { name, value } = target;
+    this.setState({
+      [name]: value,
+    });
+  };
 
   addCartItem = () => {
     const { productInfo: { id, title, price, thumbnail: image } } = this.state;
@@ -48,10 +72,40 @@ class Product extends Component {
     });
   };
 
-  render() {
-    const { productInfo: { title, thumbnail, price }, specs, pictures } = this.state;
-    const image = pictures.length === 0 ? thumbnail : pictures[0].url;
+  submitButton = (event) => {
+    event.preventDefault();
+    const {
+      email,
+      rating,
+      detailEvaluation,
+    } = this.state;
+    const { match: { params: { id } } } = this.props;
+    const evaluation = { email, rating, detailEvaluation, id };
+    this.setState(({ objEvaluation }) => (
+      { objEvaluation: [...objEvaluation, evaluation] }
+    ), this.evalStorage);
+    console.log(evaluation);
+  }
 
+  evalStorage = () => {
+    const { objEvaluation } = this.state;
+    localStorage.setItem('evaluations', JSON.stringify(objEvaluation));
+  }
+
+  render() {
+    const {
+      productInfo: { title, thumbnail, price },
+      specs,
+      pictures,
+      email,
+      detailEvaluation,
+      objEvaluation,
+    } = this.state;
+    const { match: { params: { id } } } = this.props;
+    const image = pictures.length === 0 ? thumbnail : pictures[0].url;
+    const evalFilter = objEvaluation.filter((evalu) => (
+      evalu.id === id
+    ));
     return (
       <div className="div-product-info">
         <h2 data-testid="product-detail-name">{title}</h2>
@@ -103,6 +157,29 @@ class Product extends Component {
               <span>{ spec.value_name }</span>
             </div>))}
         </div>
+
+        <FormEval
+          id={ id }
+          email={ email }
+          handleChange={ this.handleChange }
+          detailEvaluation={ detailEvaluation }
+          submitButton={ this.submitButton }
+        />
+        {evalFilter.length && (
+          <div className="div-specs">
+            {evalFilter
+              .map((evalu) => (
+                <Evaluation
+                  key={ evalu.detailEvaluation }
+                  id={ evalu.id }
+                  email={ evalu.email }
+                  rating={ evalu.rating }
+                  detailEvaluation={ evalu.detailEvaluation }
+                />
+              ))}
+          </div>
+        )}
+
       </div>);
   }
 }
