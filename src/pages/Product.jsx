@@ -21,7 +21,7 @@ class Product extends Component {
   }
 
   addCartItem = () => {
-    const { productInfo: { id, title, price, image } } = this.state;
+    const { productInfo: { id, title, price, thumbnail: image } } = this.state;
     const product = { id, title, price, image, quantidade: 1 };
     const cartItem = JSON.parse(localStorage.getItem('cartItems'));
 
@@ -60,7 +60,7 @@ class Product extends Component {
 
           <div>
             <Link
-              className="cart-icon"
+              className="cart-icon-details"
               data-testid="shopping-cart-button"
               to="/cart"
             >

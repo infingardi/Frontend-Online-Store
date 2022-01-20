@@ -6,10 +6,26 @@ class Cart extends Component {
 
     this.state = {
       items: [],
+
     };
   }
 
   componentDidMount() {
+    this.getItemStorage();
+  }
+
+  handleClick(id, operation) {
+    const cartItem = JSON.parse(localStorage.getItem('cartItems'));
+
+    const product = cartItem.find((item) => item.id === id);
+    if (operation === '-') {
+      product.quantidade -= 1;
+    } else if (operation === '+') {
+      product.quantidade += 1;
+    } else { product.quantidade = 0; }
+    const newStorage = cartItem.filter((item) => item.quantidade !== 0);
+
+    localStorage.setItem('cartItems', JSON.stringify(newStorage));
     this.getItemStorage();
   }
 
@@ -31,9 +47,32 @@ class Cart extends Component {
               <h3 data-testid="shopping-cart-product-name">{title}</h3>
               <img src={ image } alt="Produto" />
               <h3>{ price }</h3>
+              <button
+                data-testid="product-increase-quantity"
+                onClick={ () => this.handleClick(id, '+') }
+                type="button"
+              >
+                +
+
+              </button>
               <p data-testid="shopping-cart-product-quantity">
                 { quantidade }
               </p>
+              <button
+                data-testid="product-decrease-quantity"
+                onClick={ () => this.handleClick(id, '-') }
+                type="button"
+              >
+                -
+
+              </button>
+              <button
+                onClick={ () => this.handleClick(id, '.') }
+                type="button"
+              >
+                Remover item
+
+              </button>
             </div>
           ))}
       </div>
