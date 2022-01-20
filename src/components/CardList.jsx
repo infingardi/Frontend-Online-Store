@@ -6,7 +6,7 @@ class CardList extends Component {
   render() {
     const { products } = this.props;
     return (
-      <div>
+      <div className="div-products">
         {products.map(({ id, title, price, thumbnail }) => (
           <Card
             key={ id }

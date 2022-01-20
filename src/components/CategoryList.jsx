@@ -24,6 +24,7 @@ class CategoryList extends Component {
     const { handleChange } = this.props;
     return (
       <form className="categorie-form">
+        <h2>Categorias:</h2>
         {categories.map(({ name, id }) => (<Category
           key={ id }
           id={ id }
