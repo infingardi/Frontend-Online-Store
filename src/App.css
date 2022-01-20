@@ -114,12 +114,23 @@
   background-color: black;
   border: solid 1px rgb(241, 241, 241);
   border-radius: 0.5rem;
-  color: white;
   padding: 10px;
   text-decoration: none;
 }
 
 .cart-icon .cart-logo {
+  background-color: black;
+  width: 50px;
+
+}
+
+.cart-icon-details {
+  border-radius: 0.5rem;
+  padding: 10px;
+  text-decoration: none;
+}
+
+.cart-icon-details .cart-logo {
   background-color: black;
   width: 50px;
 
