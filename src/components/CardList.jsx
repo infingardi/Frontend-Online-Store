@@ -4,7 +4,7 @@ import Card from './Card';
 
 class CardList extends Component {
   render() {
-    const { products } = this.props;
+    const { products, addCartItem } = this.props;
     return (
       <div className="div-products">
         {products.map(({ id, title, price, thumbnail }) => (
@@ -14,6 +14,7 @@ class CardList extends Component {
             title={ title }
             price={ price }
             image={ thumbnail }
+            addCartItem={ addCartItem }
           />
         ))}
       </div>
