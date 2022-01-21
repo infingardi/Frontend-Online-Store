@@ -21,7 +21,9 @@ body {
   font-size: 1rem;
   height: 35px;
   margin-left: 10px;
-  transition: color 2s;
+  margin-top: 20px;
+  transition: all 0.5s;
+  width: 95%;
 
 }
 
@@ -45,6 +47,7 @@ body {
   border-radius: 0.5rem;
   color: white;
   margin: 5px;
+  transition: all 0.25s;
 }
 
 .cart-item button:hover {
@@ -75,11 +78,14 @@ body {
   color: black;
   display: flex;
   flex-direction: column;
-  gap: 20px;
   justify-content: center;
-  margin-top: 50px;
+  left: -300px;
+  margin-top: 90px;
   padding: 15px;
+  position: relative;
+  transition: all 0.5s;
   width: 250px;
+
 }
 
 .div-products {
@@ -100,8 +106,24 @@ body {
   justify-content: center;
   margin: 10px;
   padding: 20px;
-  width: 20%;
+  transition: all 0.5s;
+  width: 15%;
 
+}
+
+.product:hover {
+  background-color: darkcyan;
+  color: white;
+}
+
+.product a {
+  color: black;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.product a:hover {
+  color: white;
 }
 
 .product img {
@@ -110,11 +132,6 @@ body {
   width: 100%;
 }
 
-.product a {
-  color: black;
-  font-size: 14px;
-  text-decoration: none;
-}
 
 .div-form {
   width: 30%;
@@ -130,7 +147,10 @@ body {
   border: solid 1px rgb(241, 241, 241);
   border-radius: 0.5rem;
   padding: 10px;
+  position: fixed;
+  right: 10px;
   text-decoration: none;
+  top: 10px;
 }
 
 .cart-icon .cart-logo {
@@ -142,7 +162,10 @@ body {
 .cart-icon-details {
   border-radius: 0.5rem;
   padding: 10px;
+  position: fixed;
+  right: 50px;
   text-decoration: none;
+  top: 10px;
 }
 
 .cart-icon-details .cart-logo {
@@ -201,7 +224,6 @@ body {
 
 .div-product-info button:hover {
   background-color: black;
-  width: 175px;
 
 }
 
@@ -226,9 +248,19 @@ body {
 .parcelamento {
   border: solid 1px black;
   border-radius: 0.5rem;
+  display: flex;
+  flex-flow: row wrap;
   margin-top: 30px;
   padding: 10px;
   width: 250px;
+}
+
+.parcelamento h4 {
+  width: 100%;
+}
+
+.parcelamento p {
+  width: 50%;
 }
 
 .cards-logo {
@@ -270,10 +302,96 @@ body {
   color: white;
   font-size: 1rem;
   margin-left: 10px;
+  transition: all 0.25s;
   width: 150px;
 }
 
 .card-button:hover {
   background-color: black;
 
+}
+
+.show-categories {
+  display: none;
+
+}
+
+.navbar-logo {
+  margin: 10px;
+  width: 40px;
+}
+
+.label-navbar {
+  align-items: center;
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 3px 5px 2px #00000025;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 50px;
+  margin-top: 50px;
+  padding: 15px;
+  position: absolute;
+  transition: all 0.25s;
+  width: 250px;
+  z-index: 1;
+}
+
+.label-navbar:hover {
+  background-color: darkcyan;
+  color: white;
+}
+
+.categorie-form input {
+  display: none;
+}
+
+.categorie-form label {
+  border-radius: 0.5rem;
+  box-shadow: 0 3px 5px 2px #00000025;
+  margin: 5px;
+  padding: 10px 0;
+  text-align: center;
+  transition: all 0.25s;
+  width: 100%;
+}
+
+.categorie-form label:hover {
+  background-color: darkcyan;
+  color: white;
+}
+
+.selected {
+  background-color: darkcyan;
+  color: white;
+}
+
+.clicked {
+  align-items: center;
+  background-color: darkcyan;
+  border-radius: 0.5rem;
+  box-shadow: 0 3px 5px 2px #00000025;
+  color: white;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 50px;
+  margin-top: 50px;
+  padding: 15px;
+  position: absolute;
+  transition: all 0.25s;
+  width: 250px;
+  z-index: 1;
+}
+
+.header {
+  align-items: center;
+  background-color: darkcyan;
+  border-radius: 0.25rem;
+  box-shadow: 0 3px 5px 2px #00000025;
+  color: white;
+  display: flex;
+  font-family: Courier , monospace;
+  height: 100px;
+  justify-content: center;
+  text-align: center;
 }

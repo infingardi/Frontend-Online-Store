@@ -21,7 +21,6 @@ class Home extends Component {
 
   componentDidMount() {
     this.initLocalStorage();
-    this.fetchProducts();
   }
 
   initLocalStorage = () => {
@@ -71,6 +70,13 @@ class Home extends Component {
     });
   };
 
+  handleChangeCategory = ({ target }) => {
+    const { name, value } = target;
+    this.setState({
+      [name]: value,
+    }, this.fetchProducts);
+  };
+
   render() {
     const { searchInput, products } = this.state;
     return (
@@ -108,7 +114,7 @@ class Home extends Component {
         </Link>
         <section className="categorie-products">
           <div className="divform">
-            <CategoryList handleChange={ this.handleChange } />
+            <CategoryList handleChange={ this.handleChangeCategory } />
           </div>
           <div>
             <CardList

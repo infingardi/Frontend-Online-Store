@@ -9,9 +9,14 @@ class Card extends Component {
       <div className="product" data-testid="product">
         <Link data-testid="product-detail-link" to={ `/product/${id}` }>
           <h3 data-testid="shopping-cart-product-name">{ title }</h3>
+
+          <img src={ image } alt="Produto" />
         </Link>
-        <img src={ image } alt="Produto" />
-        <h3>{ price }</h3>
+        <h3>
+          R$:
+          {' '}
+          { price.toFixed(2) }
+        </h3>
         <button
           className="card-button"
           type="button"
