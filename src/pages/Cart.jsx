@@ -48,7 +48,7 @@ class Cart extends Component {
               <img src={ image } alt="Produto" />
               <h3>{ price }</h3>
               <button
-                data-testid="product-increase-quantity"
+                data-testid="product-decrease-quantity"
                 onClick={ () => this.handleClick(id, '-') }
                 type="button"
               >
@@ -59,7 +59,7 @@ class Cart extends Component {
                 { quantidade }
               </p>
               <button
-                data-testid="product-decrease-quantity"
+                data-testid="product-increase-quantity"
                 onClick={ () => this.handleClick(id, '+') }
                 type="button"
               >
