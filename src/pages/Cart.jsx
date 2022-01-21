@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 class Cart extends Component {
   constructor() {
@@ -6,7 +7,7 @@ class Cart extends Component {
 
     this.state = {
       items: [],
-
+      totalPrice: 0,
     };
   }
 
@@ -31,16 +32,25 @@ class Cart extends Component {
 
   getItemStorage = () => {
     const cartItems = localStorage.getItem('cartItems');
-    this.setState({ items: [...JSON.parse(cartItems)] });
+    this.setState({ items: [...JSON.parse(cartItems)] }, this.getTotalPrice);
+  }
+
+  getTotalPrice = () => {
+    const { items } = this.state;
+    const tPrice = items.reduce((prevValue, { price, quantidade }) => (
+      prevValue + (price * quantidade)
+    ), 0);
+
+    this.setState({ totalPrice: tPrice.toFixed(2) });
   }
 
   render() {
-    const { items } = this.state;
+    const { items, totalPrice } = this.state;
 
     return (
       <div className="cart">
-        { items.length === 0 && (
-          <h1 data-testid="shopping-cart-empty-message">Seu carrinho está vazio</h1>)}
+        { items.length === 0
+          && <h1 data-testid="shopping-cart-empty-message">Seu carrinho está vazio</h1>}
         {items
           .map(({ id, title, price, image, quantidade }) => (
             <div className="cart-item" key={ id }>
@@ -76,6 +86,17 @@ class Cart extends Component {
               </button>
             </div>
           ))}
+        {items.length !== 0 && (
+          <div>
+            <p>
+              {' '}
+              total:
+              {' '}
+              { totalPrice }
+            </p>
+            <Link to="/checkout" data-testid="checkout-products">Finalizar Compra</Link>
+          </div>
+        ) }
       </div>
     );
   }
