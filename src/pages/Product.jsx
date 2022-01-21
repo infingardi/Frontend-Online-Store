@@ -7,6 +7,7 @@ import cartLogo from '../assets/cartLogo.png';
 import cardsLogo from '../assets/cardsLogo.png';
 import Evaluation from '../components/Evaluation';
 import FormEval from '../components/FormEval';
+import Parcelamento from '../components/Parcelamento';
 
 class Product extends Component {
   constructor() {
@@ -92,6 +93,8 @@ class Product extends Component {
     localStorage.setItem('evaluations', JSON.stringify(objEvaluation));
   }
 
+  calcParcelas = (price, parcelas) => price / parcelas
+
   render() {
     const {
       productInfo: { title, thumbnail, price },
@@ -111,8 +114,21 @@ class Product extends Component {
 
         <div className="img-price">
           <div className="title"><h2 data-testid="product-detail-name">{title}</h2></div>
-          <img src={ image } alt="" />
+          <div
+            style={ {
+              flexDirection: 'column',
+              display: 'flex' } }
+          >
+            <img src={ image } alt="" />
+            <button
+              type="button"
+              data-testid="product-detail-add-to-cart"
+              onClick={ this.addCartItem }
+            >
+              Adicionar ao carrinho
 
+            </button>
+          </div>
           <div>
             <Link
               className="cart-icon-details"
@@ -124,24 +140,16 @@ class Product extends Component {
             <h4>
               Preço:
               {' '}
-              $
+              R$
               {price}
+              0
             </h4>
-            <span>em até 12x</span>
-            <button
-              type="button"
-              data-testid="product-detail-add-to-cart"
-              onClick={ this.addCartItem }
-            >
-              Adicionar ao carrinho
+            <span>
+              {' '}
+              <strong>em até 12x</strong>
+            </span>
 
-            </button>
-            <div className="parcelamento">
-              <h4>PARCELAMENTO</h4>
-              <p>Visa</p>
-              <p>Master</p>
-              <p>American Express</p>
-            </div>
+            <Parcelamento calcParcelas={ this.calcParcelas } price={ price } />
             <img className="cards-logo" src={ cardsLogo } alt="cards" />
           </div>
         </div>
