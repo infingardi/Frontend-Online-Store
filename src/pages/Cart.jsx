@@ -38,26 +38,15 @@ class Cart extends Component {
     const { items } = this.state;
 
     return (
-      <div>
+      <div className="cart">
         { items.length === 0 && (
           <h1 data-testid="shopping-cart-empty-message">Seu carrinho está vazio</h1>)}
         {items
           .map(({ id, title, price, image, quantidade }) => (
-            <div key={ id }>
+            <div className="cart-item" key={ id }>
               <h3 data-testid="shopping-cart-product-name">{title}</h3>
               <img src={ image } alt="Produto" />
               <h3>{ price }</h3>
-              <button
-                data-testid="product-increase-quantity"
-                onClick={ () => this.handleClick(id, '+') }
-                type="button"
-              >
-                +
-
-              </button>
-              <p data-testid="shopping-cart-product-quantity">
-                { quantidade }
-              </p>
               <button
                 data-testid="product-decrease-quantity"
                 onClick={ () => this.handleClick(id, '-') }
@@ -66,7 +55,19 @@ class Cart extends Component {
                 -
 
               </button>
+              <p data-testid="shopping-cart-product-quantity">
+                { quantidade }
+              </p>
               <button
+                data-testid="product-increase-quantity"
+                onClick={ () => this.handleClick(id, '+') }
+                type="button"
+              >
+                +
+
+              </button>
+              <button
+                className="btn-remove"
                 onClick={ () => this.handleClick(id, '.') }
                 type="button"
               >

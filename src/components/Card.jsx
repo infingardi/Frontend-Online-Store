@@ -13,6 +13,7 @@ class Card extends Component {
         <img src={ image } alt="Produto" />
         <h3>{ price }</h3>
         <button
+          className="card-button"
           type="button"
           data-testid="product-add-to-cart"
           onClick={ () => { addCartItem(id, title, price, image); } }

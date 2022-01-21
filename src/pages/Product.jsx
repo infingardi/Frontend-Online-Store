@@ -108,8 +108,9 @@ class Product extends Component {
     ));
     return (
       <div className="div-product-info">
-        <h2 data-testid="product-detail-name">{title}</h2>
+
         <div className="img-price">
+          <div className="title"><h2 data-testid="product-detail-name">{title}</h2></div>
           <img src={ image } alt="" />
 
           <div>
@@ -183,7 +184,6 @@ class Product extends Component {
       </div>);
   }
 }
-
 Product.propTypes = {
   match: propTypes.shape({
     params: propTypes.objectOf(propTypes.number),
