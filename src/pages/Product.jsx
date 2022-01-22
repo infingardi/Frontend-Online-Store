@@ -20,6 +20,8 @@ class Product extends Component {
       email: '',
       rating: '',
       detailEvaluation: '',
+      totalQuantity: 0,
+      cartItems: [],
     };
   }
 
@@ -30,6 +32,10 @@ class Product extends Component {
 
   initLocalStorage = () => {
     const itemStorage = JSON.parse(localStorage.getItem('evaluations'));
+    const itemsOnCart = JSON.parse(localStorage.getItem('cartItems'));
+
+    this.setState({ cartItems: [...itemsOnCart] }, this.calcTotalQuantity);
+
     if (!itemStorage || (itemStorage.length === 0)) {
       this.evalStorage();
     } else {
@@ -59,6 +65,7 @@ class Product extends Component {
     }
 
     localStorage.setItem('cartItems', JSON.stringify(cartItem));
+    this.setState({ cartItems: [...cartItem] }, this.calcTotalQuantity);
   }
 
   fetchProductInfo = async () => {
@@ -95,6 +102,13 @@ class Product extends Component {
 
   calcParcelas = (price, parcelas) => price / parcelas
 
+  calcTotalQuantity = () => {
+    const { cartItems } = this.state;
+    const total = cartItems.reduce((prev, item) => item.quantidade + prev, 0);
+
+    this.setState({ totalQuantity: total });
+  }
+
   render() {
     const {
       productInfo: { title, thumbnail, price },
@@ -103,6 +117,7 @@ class Product extends Component {
       email,
       detailEvaluation,
       objEvaluation,
+      totalQuantity,
     } = this.state;
     const { match: { params: { id } } } = this.props;
     const image = pictures.length === 0 ? thumbnail : pictures[0].url;
@@ -136,7 +151,11 @@ class Product extends Component {
               to="/cart"
             >
               <img className="cart-logo" src={ cartLogo } alt="cartLogo" />
+              <p data-testid="shopping-cart-size">
+                { totalQuantity }
+              </p>
             </Link>
+
             <h4>
               Preço:
               {' '}
