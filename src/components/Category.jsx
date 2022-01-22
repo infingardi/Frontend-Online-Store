@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 class Category extends Component {
   handleClick = ({ target }) => {
     const label = document.querySelector('.c-label-cyan');
-    console.log(label);
     if (label) {
       label.classList.remove('c-label-cyan');
       console.log(label);

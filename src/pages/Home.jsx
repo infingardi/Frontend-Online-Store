@@ -14,6 +14,8 @@ class Home extends Component {
       products: [],
       selectedCategory: 'MLB1648',
       cartItems: [],
+      totalQuantity: 0,
+
     };
 
     this.addCartItem = this.addCartItem.bind(this);
@@ -28,7 +30,7 @@ class Home extends Component {
     if (!itemStorage || (itemStorage.length === 0)) {
       this.addItemStorage();
     } else {
-      this.setState({ cartItems: itemStorage });
+      this.setState({ cartItems: itemStorage }, this.calcTotalQuantity);
       localStorage.setItem('cartItems', [JSON.stringify(itemStorage)]);
     }
   }
@@ -37,6 +39,7 @@ class Home extends Component {
     const { cartItems } = this.state;
 
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
+    this.calcTotalQuantity();
   }
 
   addCartItem = (id, title, price, image) => {
@@ -77,8 +80,15 @@ class Home extends Component {
     }, this.fetchProducts);
   };
 
+  calcTotalQuantity = () => {
+    const { cartItems } = this.state;
+    const total = cartItems.reduce((prev, item) => item.quantidade + prev, 0);
+
+    this.setState({ totalQuantity: total });
+  }
+
   render() {
-    const { searchInput, products } = this.state;
+    const { searchInput, products, totalQuantity } = this.state;
     return (
       <div className="home-content">
         <h3
@@ -111,6 +121,9 @@ class Home extends Component {
           to="/cart"
         >
           <img className="cart-logo" src={ cartLogo } alt="cartLogo" />
+          <p data-testid="shopping-cart-size">
+            { totalQuantity }
+          </p>
         </Link>
         <section className="categorie-products">
           <div className="divform">
