@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
 import states from '../services/states';
+import masterLogo from '../assets/mastercard-logo.png';
+import visaLogo from '../assets/visa-logo-2.png';
+import eloLogo from '../assets/Elo_logo.png';
+import boleto from '../assets/boleto.png';
 
 class Checkout extends Component {
   constructor() {
@@ -48,6 +51,13 @@ class Checkout extends Component {
     this.setState({
       [name]: value,
     });
+    const labels = document.querySelectorAll('.card-label');
+    target.parentNode.style.backgroundColor = 'darkcyan';
+    labels.forEach((label) => {
+      if (label.htmlFor !== target.parentNode.htmlFor) {
+        label.style.backgroundColor = 'white';
+      }
+    });
   };
 
   completePurchase = (event) => {
@@ -82,29 +92,26 @@ class Checkout extends Component {
     } = this.state;
 
     return (
-      <div>
-        <div className="cart">
+      <div className="checkout-page">
+        <div className="checkout-items">
           { items.length === 0 && (
             <h1 data-testid="shopping-cart-empty-message">Seu carrinho está vazio</h1>)}
           {items
             .map(({ id, title, price, image, quantidade }) => (
-              <div className="cart-item" key={ id }>
+              <div className="checkout-item" key={ id }>
                 <h3 data-testid="shopping-cart-product-name">{title}</h3>
                 <img src={ image } alt="Produto" />
-                <h3>{ price }</h3>
-                <p data-testid="shopping-cart-product-quantity">
+                <h3>
+                  R$
+                  { price.toFixed(2) }
+                </h3>
+                <p className="quantidade" data-testid="shopping-cart-product-quantity">
                   { quantidade }
                 </p>
               </div>
             ))}
-          <p>
-            {' '}
-            total:
-            {' '}
-            { totalPrice }
-          </p>
         </div>
-        <div>
+        <div className="pagamento">
           <form>
             <input
               type="text"
@@ -184,46 +191,53 @@ class Checkout extends Component {
                 </option>))}
             </select>
 
-            <h4>Método de Pagamento</h4>
-            <label htmlFor="boleto">
-              Boleto
+            <h4>Método de Pagamento:</h4>
+            <label
+              className="card-label"
+              htmlFor="boleto"
+            >
               <input
-                type="radio"
+                style={ { display: 'none' } }
+                type="checkbox"
                 name="pagamento"
                 id="boleto"
                 value="boleto"
                 onChange={ this.handleChange }
               />
+              <img className="card-logo" src={ boleto } alt="" />
             </label>
-            <label htmlFor="visa">
-              Visa
+            <label className="card-label" htmlFor="visa">
               <input
+                style={ { display: 'none' } }
                 type="radio"
                 name="pagamento"
                 id="visa"
                 value="visa"
                 onChange={ this.handleChange }
               />
+              <img className="card-logo" src={ visaLogo } alt="" />
             </label>
-            <label htmlFor="mastercard">
-              mastercard
+            <label className="card-label" htmlFor="mastercard">
               <input
+                style={ { display: 'none', backgroundColor: 'darkcyan' } }
                 type="radio"
                 name="pagamento"
                 id="mastercard"
                 value="mastercard"
                 onChange={ this.handleChange }
               />
+              <img className="card-logo" src={ masterLogo } alt="" />
             </label>
-            <label htmlFor="elo">
-              Elo
+            <label className="card-label" htmlFor="elo">
               <input
+                style={ { display: 'none' } }
                 type="radio"
                 name="pagamento"
                 id="elo"
                 value="elo"
                 onChange={ this.handleChange }
               />
+              <img className="card-logo" src={ eloLogo } alt="" />
             </label>
             <p style={ { display: 'none' } }>
               {' '}
@@ -232,6 +246,13 @@ class Checkout extends Component {
             </p>
 
             <button onClick={ this.completePurchase } type="submit">Comprar</button>
+            <p style={ { margin: '30px' } }>
+              {' '}
+              <strong>Total:</strong>
+              {' '}
+              R$:
+              { totalPrice }
+            </p>
           </form>
         </div>
         <div />

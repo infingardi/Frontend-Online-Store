@@ -87,14 +87,21 @@ class Cart extends Component {
             </div>
           ))}
         {items.length !== 0 && (
-          <div>
-            <p>
+          <div className="div-total">
+            <p style={ { margin: '30px' } }>
               {' '}
-              total:
+              <strong>Total:</strong>
               {' '}
               { totalPrice }
             </p>
-            <Link to="/checkout" data-testid="checkout-products">Finalizar Compra</Link>
+            <Link
+              className="go-checkout"
+              to="/checkout"
+              data-testid="checkout-products"
+            >
+              Finalizar Compra
+
+            </Link>
           </div>
         ) }
       </div>
