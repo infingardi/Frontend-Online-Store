@@ -96,7 +96,7 @@ body {
   flex-direction: column;
   justify-content: center;
   left: -300px;
-  margin-top: 90px;
+  margin-top: 140px;
   padding: 15px;
   position: relative;
   transition: all 0.5s;
@@ -171,6 +171,7 @@ body {
 
 .cart-icon .cart-logo {
   background-color: black;
+  box-shadow: 0 3px 5px 2px #00000025;
   width: 50px;
 
 }
@@ -344,7 +345,6 @@ body {
   box-shadow: 0 3px 5px 2px #00000025;
   display: flex;
   justify-content: center;
-  margin-bottom: 50px;
   margin-top: 50px;
   padding: 15px;
   position: absolute;
@@ -545,4 +545,29 @@ body {
   color: white;
   padding: 10px;
   width: 10px;
+}
+
+.quant {
+  background-color: white;
+  border-color: black;
+  border-radius: 10px;
+  box-shadow: 0 3px 5px 2px #00000025;
+  color: black;
+  padding: 5px;
+  position: fixed;
+  right: 60px;
+  top: 30px;
+}
+
+.quant2 {
+  background-color: white;
+  border-color: black;
+  border-radius: 10px;
+  box-shadow: 0 3px 5px 2px #00000025;
+  color: black;
+  font-weight: 2000;
+  padding: 5px;
+  position: fixed;
+  right: 120px;
+  top: 40px;
 }
