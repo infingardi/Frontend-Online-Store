@@ -4,12 +4,12 @@ import { Link } from 'react-router-dom';
 
 class Card extends Component {
   render() {
-    const { title, price, image, id, addCartItem, stock } = this.props;
+    const { title, price, image, id, addCartItem, stock, shipping } = this.props;
     return (
       <div className="product" data-testid="product">
         <Link data-testid="product-detail-link" to={ `/product/${id}` }>
           <h3 data-testid="shopping-cart-product-name">{ title }</h3>
-
+          {shipping && <span data-testid="free-shipping">Frete grátis</span>}
           <img src={ image } alt="Produto" />
         </Link>
         <h3>
@@ -21,7 +21,7 @@ class Card extends Component {
           className="card-button"
           type="button"
           data-testid="product-add-to-cart"
-          onClick={ () => { addCartItem({ id, title, price, image, stock }); } }
+          onClick={ () => { addCartItem({ id, title, price, image, stock, shipping }); } }
         >
           Adicionar ao Carrinho
         </button>
