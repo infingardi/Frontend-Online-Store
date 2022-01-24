@@ -7,7 +7,7 @@ class CardList extends Component {
     const { products, addCartItem } = this.props;
     return (
       <div className="div-products">
-        {products.map(({ id, title, price, thumbnail }) => (
+        {products.map(({ id, title, price, thumbnail, available_quantity: stock }) => (
           <Card
             key={ id }
             id={ id }
@@ -15,6 +15,7 @@ class CardList extends Component {
             price={ price }
             image={ thumbnail }
             addCartItem={ addCartItem }
+            stock={ stock }
           />
         ))}
       </div>

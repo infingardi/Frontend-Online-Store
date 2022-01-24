@@ -162,8 +162,7 @@ class Product extends Component {
               Preço:
               {' '}
               R$
-              {price}
-              0
+              {Number(price).toFixed(2)}
             </h4>
             <span>
               {' '}

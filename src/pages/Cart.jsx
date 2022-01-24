@@ -21,9 +21,9 @@ class Cart extends Component {
     const product = cartItem.find((item) => item.id === id);
     if (operation === '-') {
       product.quantidade -= 1;
-    } else if (operation === '+') {
+    } else if (operation === '+' && product.stock > product.quantidade) {
       product.quantidade += 1;
-    } else { product.quantidade = 0; }
+    } else if (operation === '.') { product.quantidade = 0; }
     const newStorage = cartItem.filter((item) => item.quantidade !== 0);
 
     localStorage.setItem('cartItems', JSON.stringify(newStorage));
@@ -56,7 +56,10 @@ class Cart extends Component {
             <div className="cart-item" key={ id }>
               <h3 data-testid="shopping-cart-product-name">{title}</h3>
               <img src={ image } alt="Produto" />
-              <h3>{ price }</h3>
+              <h3>
+                R$
+                { price.toFixed(2) }
+              </h3>
               <button
                 data-testid="product-decrease-quantity"
                 onClick={ () => this.handleClick(id, '-') }
@@ -92,6 +95,7 @@ class Cart extends Component {
               {' '}
               <strong>Total:</strong>
               {' '}
+              R$
               { totalPrice }
             </p>
             <Link

@@ -42,17 +42,19 @@ class Home extends Component {
     this.calcTotalQuantity();
   }
 
-  addCartItem = (id, title, price, image) => {
-    const product = { id, title, price, image, quantidade: 1 };
+  addCartItem = ({ id, title, price, image, stock }) => {
+    const product = { id, title, price, image, quantidade: 1, stock };
     const { cartItems: items } = this.state;
 
     const verify = items.find((item) => item.id === product.id);
 
     if (verify) {
-      verify.quantidade += 1;
-      this.setState(({ cartItems }) => ({
-        cartItems: [...cartItems],
-      }), this.addItemStorage);
+      if (product.stock > verify.quantidade) {
+        verify.quantidade += 1;
+        this.setState(({ cartItems }) => ({
+          cartItems: [...cartItems],
+        }), this.addItemStorage);
+      }
     } else {
       this.setState(({ cartItems }) => ({
         cartItems: [...cartItems, product],
