@@ -121,8 +121,8 @@ class Home extends Component {
           to="/cart"
         >
           <img className="cart-logo" src={ cartLogo } alt="cartLogo" />
-          <p data-testid="shopping-cart-size">
-            { totalQuantity }
+          <p className="quant" data-testid="shopping-cart-size">
+            <strong>{totalQuantity}</strong>
           </p>
         </Link>
         <section className="categorie-products">

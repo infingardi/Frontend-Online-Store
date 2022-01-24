@@ -151,8 +151,10 @@ class Product extends Component {
               to="/cart"
             >
               <img className="cart-logo" src={ cartLogo } alt="cartLogo" />
-              <p data-testid="shopping-cart-size">
-                { totalQuantity }
+              <p className="quant2" data-testid="shopping-cart-size">
+
+                {totalQuantity}
+
               </p>
             </Link>
 
