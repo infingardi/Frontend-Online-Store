@@ -16,6 +16,7 @@ class Product extends Component {
       productInfo: {},
       specs: [],
       pictures: [],
+      freeShipping: false,
       objEvaluation: [],
       email: '',
       rating: '',
@@ -52,14 +53,21 @@ class Product extends Component {
   };
 
   addCartItem = () => {
-    const { productInfo: { id, title, price, thumbnail: image } } = this.state;
-    const product = { id, title, price, image, quantidade: 1 };
+    const { productInfo: {
+      id,
+      title,
+      price,
+      thumbnail: image,
+      available_quantity: stock,
+    } } = this.state;
+    const product = { id, title, price, image, quantidade: 1, stock };
     const cartItem = JSON.parse(localStorage.getItem('cartItems'));
-
     const verify = cartItem.find((item) => item.id === product.id);
 
     if (verify) {
-      verify.quantidade += 1;
+      if (stock > verify.quantidade) {
+        verify.quantidade += 1;
+      }
     } else {
       cartItem.push(product);
     }
@@ -72,11 +80,13 @@ class Product extends Component {
     const { location: { pathname } } = this.props;
     const productID = pathname.split('/');
     const request = await getProductInfo(productID[2]);
+    console.log(request);
 
     this.setState({
       productInfo: request,
       specs: request.attributes,
       pictures: request.pictures,
+      freeShipping: request.shipping.free_shipping,
     });
   };
 
@@ -114,16 +124,19 @@ class Product extends Component {
       productInfo: { title, thumbnail, price },
       specs,
       pictures,
+      freeShipping,
       email,
       detailEvaluation,
       objEvaluation,
       totalQuantity,
     } = this.state;
     const { match: { params: { id } } } = this.props;
+
     const image = pictures.length === 0 ? thumbnail : pictures[0].url;
     const evalFilter = objEvaluation.filter((evalu) => (
       evalu.id === id
     ));
+
     return (
       <div className="div-product-info">
 
@@ -135,6 +148,7 @@ class Product extends Component {
               display: 'flex' } }
           >
             <img src={ image } alt="" />
+            {freeShipping && <span data-testid="free-shipping">Frete grátis</span>}
             <button
               type="button"
               data-testid="product-detail-add-to-cart"

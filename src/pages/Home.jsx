@@ -42,8 +42,8 @@ class Home extends Component {
     this.calcTotalQuantity();
   }
 
-  addCartItem = ({ id, title, price, image, stock }) => {
-    const product = { id, title, price, image, quantidade: 1, stock };
+  addCartItem = ({ id, title, price, image, stock, shipping }) => {
+    const product = { id, title, price, image, quantidade: 1, stock, shipping };
     const { cartItems: items } = this.state;
 
     const verify = items.find((item) => item.id === product.id);
