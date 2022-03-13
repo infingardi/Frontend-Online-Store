@@ -23,6 +23,7 @@ class Home extends Component {
 
   componentDidMount() {
     this.initLocalStorage();
+    this.fetchProducts();
   }
 
   initLocalStorage = () => {
